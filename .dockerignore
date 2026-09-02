@@ -1,0 +1,15 @@
+.git
+.gitignore
+.github
+.vscode
+.idea
+Dockerfile
+.dockerignore
+README.md
+*.log
+.env*
+node_modules
+dist
+dist-ssr
+.data
+.output
