@@ -1,6 +1,6 @@
 {
   "name": "emoji-profile-pic",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "exports": "./src/main.tsx",
   "tasks": {
     "dev": "vite",

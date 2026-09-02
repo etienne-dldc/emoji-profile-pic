@@ -12,6 +12,7 @@ import { TransformPanel } from "./components/TransformPanel.tsx";
 import { ImagePanel, type ShapeId } from "./components/ImagePanel.tsx";
 import { RandomizePanel } from "./components/RandomizePanel.tsx";
 import { ExportPanel } from "./components/ExportPanel.tsx";
+import { Showcase } from "./components/Showcase.tsx";
 
 function Panel({ title, children }: { title: string; children: ReactNode }) {
   return (
@@ -25,6 +26,11 @@ function Panel({ title, children }: { title: string; children: ReactNode }) {
 }
 
 export function App() {
+  const isShowcase = new URLSearchParams(location.search).has("showcase");
+  return isShowcase ? <Showcase /> : <AppEditor />;
+}
+
+export function AppEditor({ fullScreen = true }: { fullScreen?: boolean }) {
   const [emoji, setEmoji] = useState(
     () => EMOJIS[Math.floor(Math.random() * EMOJIS.length)],
   );
@@ -183,7 +189,11 @@ export function App() {
   }
 
   return (
-    <div className="flex h-screen items-center justify-center bg-zinc-950 p-6 text-zinc-100">
+    <div
+      className={`flex bg-zinc-950 text-zinc-100 ${
+        fullScreen ? "h-screen items-center justify-center p-6" : "items-center justify-center p-6"
+      }`}
+    >
       <div className="flex w-full max-w-sm flex-col items-stretch gap-3">
         <Preview
           canvasRef={canvasRef}
