@@ -1,0 +1,21 @@
+{
+  "name": "emoji-profile-pic",
+  "version": "0.1.0",
+  "exports": "./src/main.ts",
+  "tasks": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "deno fmt . --check && deno check ."
+  },
+  "nodeModulesDir": "auto",
+  "imports": {
+    "@deno/vite-plugin": "npm:@deno/vite-plugin@^2.0.3",
+    "@tailwindcss/vite": "npm:@tailwindcss/vite@^4.3.3",
+    "tailwindcss": "npm:tailwindcss@^4.3.3",
+    "vite": "npm:vite@^8.1.5"
+  },
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "deno.ns"]
+  }
+}
