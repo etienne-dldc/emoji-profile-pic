@@ -2,13 +2,7 @@ import type { ReactNode } from "react";
 import { Dices, Download, Image, Move, Palette, Smile } from "lucide-react";
 import { Tooltip } from "@base-ui/react/tooltip";
 
-export type ToolId =
-  | "emoji"
-  | "background"
-  | "transform"
-  | "image"
-  | "randomize"
-  | "export";
+export type ToolId = "emoji" | "background" | "transform" | "image" | "randomize" | "export";
 
 interface Tool {
   id: ToolId;

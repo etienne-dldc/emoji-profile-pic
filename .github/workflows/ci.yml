@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: voidzero-dev/setup-vp@v1.21.2
+        with:
+          # Node.js and pnpm resolve from package.json devEngines.
+          cache: true
+
+      - run: vp check
+      - run: vp test
+      - run: vp build

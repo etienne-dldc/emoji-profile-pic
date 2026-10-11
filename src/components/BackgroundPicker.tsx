@@ -1,11 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
-import {
-  Hue,
-  Saturation,
-  hexToHsva,
-  hsvaToHex,
-  type HsvaColor,
-} from "@uiw/react-color";
+import { Hue, Saturation, hexToHsva, hsvaToHex, type HsvaColor } from "@uiw/react-color";
 import { Popover } from "@base-ui/react/popover";
 import { Sparkles, Palette, Rainbow, Check } from "lucide-react";
 import {
@@ -35,12 +29,51 @@ type Mode = "solid" | "gradient" | "magic";
 
 const THROTTLE_MS = 50;
 const SOLID_PRESETS = [
-  "#ea580c", "#78350f", "#92400e", "#f97316", "#f59e0b", "#eab308", "#facc15", "#84cc16",
-  "#0ea5e9", "#06b6d4", "#0d9488", "#14b8a6", "#10b981", "#14532d", "#166534", "#22c55e",
-  "#1f2937", "#475569", "#64748b", "#3b82f6", "#2563eb", "#1e40af", "#6366f1", "#312e81",
-  "#ec4899", "#701a75", "#c026d3", "#d946ef", "#a855f7", "#4c1d95", "#7c3aed", "#8b5cf6",
-  "#db2777", "#831843", "#881337", "#e11d48", "#f43f5e", "#fb7185", "#0b0b0f", "#111827",
-  "#57534e", "#78716c", "#f1f5f9", "#f8fafc", "#ffffff",
+  "#ea580c",
+  "#78350f",
+  "#92400e",
+  "#f97316",
+  "#f59e0b",
+  "#eab308",
+  "#facc15",
+  "#84cc16",
+  "#0ea5e9",
+  "#06b6d4",
+  "#0d9488",
+  "#14b8a6",
+  "#10b981",
+  "#14532d",
+  "#166534",
+  "#22c55e",
+  "#1f2937",
+  "#475569",
+  "#64748b",
+  "#3b82f6",
+  "#2563eb",
+  "#1e40af",
+  "#6366f1",
+  "#312e81",
+  "#ec4899",
+  "#701a75",
+  "#c026d3",
+  "#d946ef",
+  "#a855f7",
+  "#4c1d95",
+  "#7c3aed",
+  "#8b5cf6",
+  "#db2777",
+  "#831843",
+  "#881337",
+  "#e11d48",
+  "#f43f5e",
+  "#fb7185",
+  "#0b0b0f",
+  "#111827",
+  "#57534e",
+  "#78716c",
+  "#f1f5f9",
+  "#f8fafc",
+  "#ffffff",
 ];
 
 const DEFAULT_HSVA: HsvaColor = { h: 215, s: 80, v: 90, a: 1 };
@@ -125,14 +158,10 @@ export function BackgroundPicker({ selected, onSelect, emoji, renderer }: Props)
         : "solid",
   );
   const [solidHex, setSolidHex] = useState(() =>
-    selected.id.startsWith("solid")
-      ? `#${selected.id.split("-")[1]}`
-      : hsvaToHex(DEFAULT_HSVA),
+    selected.id.startsWith("solid") ? `#${selected.id.split("-")[1]}` : hsvaToHex(DEFAULT_HSVA),
   );
   const [hsva, setHsva] = useState<HsvaColor>(() =>
-    selected.id.startsWith("solid")
-      ? hexToHsva(`#${selected.id.split("-")[1]}`)
-      : DEFAULT_HSVA,
+    selected.id.startsWith("solid") ? hexToHsva(`#${selected.id.split("-")[1]}`) : DEFAULT_HSVA,
   );
   const [gradientIndex, setGradientIndex] = useState(0);
   const [pickerOpen, setPickerOpen] = useState(false);
@@ -163,9 +192,12 @@ export function BackgroundPicker({ selected, onSelect, emoji, renderer }: Props)
     }
   }, [selected]);
 
-  useEffect(() => () => {
-    if (trailingRef.current !== null) clearTimeout(trailingRef.current);
-  }, []);
+  useEffect(
+    () => () => {
+      if (trailingRef.current !== null) clearTimeout(trailingRef.current);
+    },
+    [],
+  );
 
   function commitSolid(next: HsvaColor) {
     const hex = hsvaToHex(next);
@@ -213,22 +245,17 @@ export function BackgroundPicker({ selected, onSelect, emoji, renderer }: Props)
 
   const segmented = (active: boolean) =>
     `flex-1 rounded-md px-4 py-1.5 text-sm font-medium transition ${
-      active
-        ? "bg-zinc-100 text-zinc-900"
-        : "text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
+      active ? "bg-zinc-100 text-zinc-900" : "text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
     }`;
 
-  const solidIndex = SOLID_PRESETS.findIndex(
-    (hex) => hex.toLowerCase() === solidHex.toLowerCase(),
-  );
+  const solidIndex = SOLID_PRESETS.findIndex((hex) => hex.toLowerCase() === solidHex.toLowerCase());
   const noneItem: PresetItem = {
     id: NONE_ID,
     label: "No background",
     selected: selected.id === NONE_ID,
     onSelect: () => onSelect(noneBackground),
     style: {
-      background:
-        "repeating-conic-gradient(#3f3f46 0% 25%, #27272a 0% 50%) 0 0/8px 8px",
+      background: "repeating-conic-gradient(#3f3f46 0% 25%, #27272a 0% 50%) 0 0/8px 8px",
     },
   };
   const colorItems: PresetItem[] = SOLID_PRESETS.map((hex) => ({
@@ -239,11 +266,7 @@ export function BackgroundPicker({ selected, onSelect, emoji, renderer }: Props)
     onSelect: () => commitPreset(hex),
   }));
   const solidItems = [noneItem, ...colorItems];
-  const solidSelectedIndex = selected.id === NONE_ID
-    ? 0
-    : solidIndex >= 0
-      ? solidIndex + 1
-      : -1;
+  const solidSelectedIndex = selected.id === NONE_ID ? 0 : solidIndex >= 0 ? solidIndex + 1 : -1;
   const gradientItems: PresetItem[] = GRADIENT_BACKGROUNDS.map((bg, i) => ({
     id: bg.id,
     style: { background: bg.cssBackground },
@@ -258,13 +281,25 @@ export function BackgroundPicker({ selected, onSelect, emoji, renderer }: Props)
   return (
     <div className="flex flex-col gap-4">
       <div className="flex rounded-lg bg-zinc-800/60 p-1">
-        <button type="button" className={segmented(mode === "solid")} onClick={() => switchMode("solid")}>
+        <button
+          type="button"
+          className={segmented(mode === "solid")}
+          onClick={() => switchMode("solid")}
+        >
           Solid
         </button>
-        <button type="button" className={segmented(mode === "gradient")} onClick={() => switchMode("gradient")}>
+        <button
+          type="button"
+          className={segmented(mode === "gradient")}
+          onClick={() => switchMode("gradient")}
+        >
           Gradient
         </button>
-        <button type="button" className={segmented(mode === "magic")} onClick={() => switchMode("magic")}>
+        <button
+          type="button"
+          className={segmented(mode === "magic")}
+          onClick={() => switchMode("magic")}
+        >
           Auto
         </button>
       </div>
@@ -289,7 +324,12 @@ export function BackgroundPicker({ selected, onSelect, emoji, renderer }: Props)
                     <Hue
                       hue={hsva.h}
                       onChange={({ h }) => commitSolid({ ...hsva, h })}
-                      style={{ width: "220px", height: "14px", marginTop: "12px", borderRadius: "8px" }}
+                      style={{
+                        width: "220px",
+                        height: "14px",
+                        marginTop: "12px",
+                        borderRadius: "8px",
+                      }}
                     />
                   </Popover.Popup>
                 </Popover.Positioner>
@@ -322,7 +362,9 @@ export function BackgroundPicker({ selected, onSelect, emoji, renderer }: Props)
           </div>
 
           <div>
-            <span className="mb-2 block text-xs font-semibold text-zinc-500 uppercase">Presets</span>
+            <span className="mb-2 block text-xs font-semibold text-zinc-500 uppercase">
+              Presets
+            </span>
             <PresetGrid items={solidItems} selectedIndex={solidSelectedIndex} />
           </div>
         </>

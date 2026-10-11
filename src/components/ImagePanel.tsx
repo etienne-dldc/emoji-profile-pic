@@ -35,9 +35,7 @@ interface Props {
 
 function segmented(active: boolean): string {
   return `flex-1 rounded-md px-3 py-1.5 text-sm font-medium transition ${
-    active
-      ? "bg-zinc-100 text-zinc-900"
-      : "text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
+    active ? "bg-zinc-100 text-zinc-900" : "text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
   }`;
 }
 
@@ -53,9 +51,7 @@ export function ImagePanel({
     <div className="flex flex-col gap-4">
       <div>
         <div className="mb-2 flex items-center justify-between">
-          <span className="text-xs font-semibold text-zinc-500 uppercase">
-            Size
-          </span>
+          <span className="text-xs font-semibold text-zinc-500 uppercase">Size</span>
           <span className="font-mono text-xs text-zinc-500">
             {exportSize}×{exportSize}px
           </span>
@@ -75,9 +71,7 @@ export function ImagePanel({
       </div>
 
       <div>
-        <span className="mb-2 block text-xs font-semibold text-zinc-500 uppercase">
-          Shape
-        </span>
+        <span className="mb-2 block text-xs font-semibold text-zinc-500 uppercase">Shape</span>
         <div className="flex rounded-lg bg-zinc-800/60 p-1">
           {SHAPES.map((sh) => (
             <button
@@ -94,9 +88,7 @@ export function ImagePanel({
           <div className="mt-3">
             <div className="mb-1 flex items-center justify-between text-xs">
               <span className="text-zinc-500">Radius</span>
-              <code className="font-mono text-zinc-500">
-                {Math.round(shapeRadius * 100)}%
-              </code>
+              <code className="font-mono text-zinc-500">{Math.round(shapeRadius * 100)}%</code>
             </div>
             <input
               type="range"

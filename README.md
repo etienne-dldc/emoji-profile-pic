@@ -34,17 +34,17 @@ Everything is rendered locally in your browser using the HTML5 Canvas API — no
 
 ## 🚀 Development
 
-A Deno + Vite + React + Tailwind single-page app.
+A Vite+ + React + Tailwind single-page app.
 
 ```sh
-deno task dev      # start the dev server
-deno task build    # build the production bundle to ./dist
-deno task check    # format + type check
+pnpm dev      # start the dev server (vp dev)
+pnpm build    # type-check and build the production bundle to ./dist
+pnpm check    # format, lint, type-check (vp check)
 ```
 
 ## 🐳 Deployment
 
-The app is a static site. A `Dockerfile` builds it and serves it with **Caddy** (with SPA fallback), and a GitHub Actions workflow pushes the image to **GHCR** tagged by the version in `deno.json` on every push to `main`.
+The app is a static site. A `Dockerfile` builds it (with the official Vite+ toolchain image) and serves it with **Caddy** (with SPA fallback), and a GitHub Actions workflow pushes the image to **GHCR** tagged by the version in `package.json` on every push to `main`.
 
 ```sh
 docker build -t emoji-profile-pic .   # build the image locally

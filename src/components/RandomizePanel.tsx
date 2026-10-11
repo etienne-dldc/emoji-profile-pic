@@ -60,12 +60,7 @@ export function RandomizePanel({
         Random gradient
         <Palette className="h-4 w-4" />
       </button>
-      <button
-        type="button"
-        onClick={onBackgroundColor}
-        disabled={disabled}
-        className={buttonClass}
-      >
+      <button type="button" onClick={onBackgroundColor} disabled={disabled} className={buttonClass}>
         <Circle className="h-4 w-4" />
         Random background
         <Circle className="h-4 w-4" />

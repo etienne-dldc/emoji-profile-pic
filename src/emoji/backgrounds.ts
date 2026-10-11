@@ -27,11 +27,7 @@ export interface Background {
   readonly id: string;
   readonly label: string;
   readonly cssBackground?: string;
-  paint(
-    ctx: CanvasRenderingContext2D,
-    size: number,
-    angleOffset?: number,
-  ): Promise<void> | void;
+  paint(ctx: CanvasRenderingContext2D, size: number, angleOffset?: number): Promise<void> | void;
 }
 
 export function solidBackground(hex: string, label = "Custom"): Background {
@@ -48,21 +44,51 @@ export function solidBackground(hex: string, label = "Custom"): Background {
 }
 
 export const SOLID_COLORS: Background[] = [
-  ["#f43f5e", "Rose"], ["#e11d48", "Rose 600"], ["#fb7185", "Rose 400"],
-  ["#f97316", "Orange"], ["#ea580c", "Orange 600"], ["#f59e0b", "Amber"],
-  ["#facc15", "Yellow"], ["#eab308", "Yellow 600"], ["#84cc16", "Lime"],
-  ["#22c55e", "Green"], ["#10b981", "Emerald"], ["#14b8a6", "Teal"],
-  ["#0d9488", "Teal 600"], ["#06b6d4", "Cyan"], ["#0ea5e9", "Sky"],
-  ["#3b82f6", "Blue"], ["#2563eb", "Blue 600"], ["#6366f1", "Indigo"],
-  ["#8b5cf6", "Violet"], ["#7c3aed", "Violet 600"], ["#a855f7", "Purple"],
-  ["#d946ef", "Fuchsia"], ["#c026d3", "Fuchsia 600"], ["#ec4899", "Pink"],
-  ["#db2777", "Pink 600"], ["#64748b", "Slate"], ["#475569", "Slate 700"],
-  ["#78716c", "Stone"], ["#57534e", "Stone 600"], ["#92400e", "Brown"],
-  ["#78350f", "Amber 900"], ["#166534", "Green 800"], ["#14532d", "Green 900"],
-  ["#1e40af", "Blue 800"], ["#312e81", "Indigo 900"], ["#4c1d95", "Violet 900"],
-  ["#701a75", "Fuchsia 900"], ["#831843", "Pink 900"], ["#881337", "Rose 900"],
-  ["#111827", "Zinc"], ["#1f2937", "Zinc 800"], ["#0b0b0f", "Near Black"],
-  ["#f8fafc", "Slate 50"], ["#f1f5f9", "Slate 100"], ["#ffffff", "White"],
+  ["#f43f5e", "Rose"],
+  ["#e11d48", "Rose 600"],
+  ["#fb7185", "Rose 400"],
+  ["#f97316", "Orange"],
+  ["#ea580c", "Orange 600"],
+  ["#f59e0b", "Amber"],
+  ["#facc15", "Yellow"],
+  ["#eab308", "Yellow 600"],
+  ["#84cc16", "Lime"],
+  ["#22c55e", "Green"],
+  ["#10b981", "Emerald"],
+  ["#14b8a6", "Teal"],
+  ["#0d9488", "Teal 600"],
+  ["#06b6d4", "Cyan"],
+  ["#0ea5e9", "Sky"],
+  ["#3b82f6", "Blue"],
+  ["#2563eb", "Blue 600"],
+  ["#6366f1", "Indigo"],
+  ["#8b5cf6", "Violet"],
+  ["#7c3aed", "Violet 600"],
+  ["#a855f7", "Purple"],
+  ["#d946ef", "Fuchsia"],
+  ["#c026d3", "Fuchsia 600"],
+  ["#ec4899", "Pink"],
+  ["#db2777", "Pink 600"],
+  ["#64748b", "Slate"],
+  ["#475569", "Slate 700"],
+  ["#78716c", "Stone"],
+  ["#57534e", "Stone 600"],
+  ["#92400e", "Brown"],
+  ["#78350f", "Amber 900"],
+  ["#166534", "Green 800"],
+  ["#14532d", "Green 900"],
+  ["#1e40af", "Blue 800"],
+  ["#312e81", "Indigo 900"],
+  ["#4c1d95", "Violet 900"],
+  ["#701a75", "Fuchsia 900"],
+  ["#831843", "Pink 900"],
+  ["#881337", "Rose 900"],
+  ["#111827", "Zinc"],
+  ["#1f2937", "Zinc 800"],
+  ["#0b0b0f", "Near Black"],
+  ["#f8fafc", "Slate 50"],
+  ["#f1f5f9", "Slate 100"],
+  ["#ffffff", "White"],
 ].map(([hex, label]) => solidBackground(hex, label));
 
 export function gradientBackground(def: GradientDef): Background {
@@ -106,10 +132,7 @@ export function magicBackground(emoji: string, renderer: EmojiRenderer): Backgro
   };
 }
 
-export function secondaryMagicBackground(
-  emoji: string,
-  renderer: EmojiRenderer,
-): Background {
+export function secondaryMagicBackground(emoji: string, renderer: EmojiRenderer): Background {
   return {
     id: MAGIC_SECONDARY_ID,
     label: "Secondary color",
@@ -121,10 +144,7 @@ export function secondaryMagicBackground(
   };
 }
 
-export function magicGradientBackground(
-  emoji: string,
-  renderer: EmojiRenderer,
-): Background {
+export function magicGradientBackground(emoji: string, renderer: EmojiRenderer): Background {
   return {
     id: MAGIC_GRADIENT_ID,
     label: "Gradient from emoji",

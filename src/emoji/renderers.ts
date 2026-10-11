@@ -14,12 +14,7 @@ const SYSTEM_FONT = [
   "sans-serif",
 ].join(", ");
 
-function drawEmoji(
-  ctx: CanvasRenderingContext2D,
-  emoji: string,
-  size: number,
-  fontFamily: string,
-) {
+function drawEmoji(ctx: CanvasRenderingContext2D, emoji: string, size: number, fontFamily: string) {
   ctx.font = `${size}px ${fontFamily}`;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";

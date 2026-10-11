@@ -3,10 +3,12 @@
 .github
 .vscode
 .idea
+.openchamber
 Dockerfile
 .dockerignore
 README.md
 *.log
+pnpm-debug.log*
 .env*
 node_modules
 dist

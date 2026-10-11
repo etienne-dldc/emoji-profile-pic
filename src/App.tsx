@@ -1,6 +1,16 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { renderers } from "./emoji/renderers.ts";
-import { BACKGROUNDS, GRADIENT_BACKGROUNDS, MAGIC_GRADIENT_ID, MAGIC_ID, MAGIC_SECONDARY_ID, SOLID_COLORS, magicBackground, magicGradientBackground, secondaryMagicBackground, solidBackground } from "./emoji/backgrounds.ts";
+import {
+  GRADIENT_BACKGROUNDS,
+  MAGIC_GRADIENT_ID,
+  MAGIC_ID,
+  MAGIC_SECONDARY_ID,
+  SOLID_COLORS,
+  magicBackground,
+  magicGradientBackground,
+  secondaryMagicBackground,
+  solidBackground,
+} from "./emoji/backgrounds.ts";
 import { EMOJIS } from "./emoji/emoji-list.ts";
 import { DEFAULT_TRANSFORM, type EmojiTransform } from "./emoji/transform.ts";
 import { Preview } from "./components/Preview.tsx";
@@ -17,9 +27,7 @@ import { Showcase } from "./components/Showcase.tsx";
 function Panel({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section className="rounded-2xl border border-zinc-800 bg-zinc-900/80 px-4 py-4 backdrop-blur">
-      <h2 className="mb-3 text-xs font-semibold tracking-wide text-zinc-500 uppercase">
-        {title}
-      </h2>
+      <h2 className="mb-3 text-xs font-semibold tracking-wide text-zinc-500 uppercase">{title}</h2>
       {children}
     </section>
   );
@@ -31,9 +39,7 @@ export function App() {
 }
 
 export function AppEditor({ fullScreen = true }: { fullScreen?: boolean }) {
-  const [emoji, setEmoji] = useState(
-    () => EMOJIS[Math.floor(Math.random() * EMOJIS.length)],
-  );
+  const [emoji, setEmoji] = useState(() => EMOJIS[Math.floor(Math.random() * EMOJIS.length)]);
   const [renderer, setRenderer] = useState(renderers[0]);
   const [background, setBackground] = useState(() =>
     Math.random() < 0.5
@@ -76,21 +82,21 @@ export function AppEditor({ fullScreen = true }: { fullScreen?: boolean }) {
     if (activeTool !== "randomize") stopAnimation();
   }, [activeTool]);
 
-  useEffect(() => () => {
-    if (animationRef.current !== null) clearTimeout(animationRef.current);
-  }, []);
+  useEffect(
+    () => () => {
+      if (animationRef.current !== null) clearTimeout(animationRef.current);
+    },
+    [],
+  );
 
   useEffect(() => {
     runRoulette({ emoji: randomEmoji });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const randomEmoji = () =>
-    setEmoji(EMOJIS[Math.floor(Math.random() * EMOJIS.length)]);
+  const randomEmoji = () => setEmoji(EMOJIS[Math.floor(Math.random() * EMOJIS.length)]);
   const randomGradient = () =>
-    setBackground(
-      GRADIENT_BACKGROUNDS[Math.floor(Math.random() * GRADIENT_BACKGROUNDS.length)],
-    );
+    setBackground(GRADIENT_BACKGROUNDS[Math.floor(Math.random() * GRADIENT_BACKGROUNDS.length)]);
   const randomBackgroundColor = () =>
     setBackground(SOLID_COLORS[Math.floor(Math.random() * SOLID_COLORS.length)]);
 
@@ -100,13 +106,14 @@ export function AppEditor({ fullScreen = true }: { fullScreen?: boolean }) {
     const k = (n: number) => (n + h / 30) % 12;
     const a = s * Math.min(l, 1 - l);
     const f = (n: number) => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
-    const toHex = (x: number) => Math.round(x * 255).toString(16).padStart(2, "0");
+    const toHex = (x: number) =>
+      Math.round(x * 255)
+        .toString(16)
+        .padStart(2, "0");
     return `#${toHex(f(0))}${toHex(f(8))}${toHex(f(4))}`;
   }
 
-  function runRoulette(
-    picks: { emoji?: (p?: number) => void; background?: (p?: number) => void },
-  ) {
+  function runRoulette(picks: { emoji?: (p?: number) => void; background?: (p?: number) => void }) {
     if (!animate) {
       picks.emoji?.();
       picks.background?.();
@@ -174,9 +181,7 @@ export function AppEditor({ fullScreen = true }: { fullScreen?: boolean }) {
   async function copyImage() {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const blob = await new Promise<Blob | null>((resolve) =>
-      canvas.toBlob(resolve, "image/png"),
-    );
+    const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/png"));
     if (!blob) return;
     try {
       await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
@@ -222,11 +227,7 @@ export function AppEditor({ fullScreen = true }: { fullScreen?: boolean }) {
               <div className="mb-4">
                 <RendererToggle selected={renderer} onSelect={setRenderer} />
               </div>
-              <EmojiPicker
-                selected={emoji}
-                onSelect={setEmoji}
-                fontFamily={renderer.fontFamily}
-              />
+              <EmojiPicker selected={emoji} onSelect={setEmoji} fontFamily={renderer.fontFamily} />
             </Panel>
           )}
           {activeTool === "background" && (
@@ -244,7 +245,9 @@ export function AppEditor({ fullScreen = true }: { fullScreen?: boolean }) {
               <TransformPanel
                 value={transform}
                 onChange={setTransform}
-                showGradient={background.id.startsWith("gradient") || background.id === MAGIC_GRADIENT_ID}
+                showGradient={
+                  background.id.startsWith("gradient") || background.id === MAGIC_GRADIENT_ID
+                }
                 gradientAngle={gradientAngle}
                 onGradientAngleChange={setGradientAngle}
                 backgroundScale={backgroundScale}
@@ -282,11 +285,7 @@ export function AppEditor({ fullScreen = true }: { fullScreen?: boolean }) {
           )}
           {activeTool === "export" && (
             <Panel title="Export">
-              <ExportPanel
-                onDownload={download}
-                onCopy={copyImage}
-                copied={copied}
-              />
+              <ExportPanel onDownload={download} onCopy={copyImage} copied={copied} />
             </Panel>
           )}
         </div>

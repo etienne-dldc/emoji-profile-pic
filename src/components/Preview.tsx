@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import type { Background } from "../emoji/backgrounds.ts";
 import type { EmojiRenderer } from "../emoji/renderers.ts";
 import { EMOJI_BASE_SCALE, type EmojiTransform } from "../emoji/transform.ts";
@@ -62,7 +62,7 @@ export function Preview({
 
   useEffect(() => {
     let cancelled = false;
-    (async () => {
+    void (async () => {
       setLoading(true);
       setError(null);
       try {
@@ -81,7 +81,8 @@ export function Preview({
         ctx.translate(-size / 2, -size / 2);
         traceShape(ctx, size, shape, shapeRadius);
         ctx.clip();
-        await background.paint(ctx, size, gradientAngle);        ctx.restore();
+        await background.paint(ctx, size, gradientAngle);
+        ctx.restore();
 
         ctx.save();
         if (cropEmoji && shape !== "square") {
@@ -93,10 +94,7 @@ export function Preview({
         }
         ctx.setTransform(1, 0, 0, 1, 0, 0);
         ctx.save();
-        ctx.translate(
-          size / 2 + transform.x * size,
-          size / 2 + transform.y * size,
-        );
+        ctx.translate(size / 2 + transform.x * size, size / 2 + transform.y * size);
         ctx.rotate((transform.rotation * Math.PI) / 180);
         ctx.scale(transform.scale * EMOJI_BASE_SCALE, transform.scale * EMOJI_BASE_SCALE);
         ctx.translate(-size / 2, -size / 2);
@@ -130,12 +128,7 @@ export function Preview({
 
   return (
     <div className="relative w-full max-w-sm">
-      <canvas
-        ref={canvasRef}
-        width={exportSize}
-        height={exportSize}
-        className="h-auto w-full"
-      />
+      <canvas ref={canvasRef} width={exportSize} height={exportSize} className="h-auto w-full" />
       {loading && (
         <div className="absolute inset-0 z-10 flex items-center justify-center bg-zinc-900/80 backdrop-blur-sm">
           <div className="flex flex-col items-center gap-3">

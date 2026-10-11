@@ -63,8 +63,8 @@ export function CenterSlider({
       e.key === "ArrowRight" || e.key === "ArrowUp"
         ? 1
         : e.key === "ArrowLeft" || e.key === "ArrowDown"
-        ? -1
-        : 0;
+          ? -1
+          : 0;
     if (dir === 0) return;
     e.preventDefault();
     onChange(clamp(value + dir * step, min, max));

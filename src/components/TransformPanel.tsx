@@ -81,9 +81,7 @@ export function TransformPanel({
 
   const segmented = (active: boolean) =>
     `flex-1 rounded-md px-3 py-1.5 text-sm font-medium transition ${
-      active
-        ? "bg-zinc-100 text-zinc-900"
-        : "text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
+      active ? "bg-zinc-100 text-zinc-900" : "text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
     }`;
 
   return (
@@ -161,9 +159,7 @@ export function TransformPanel({
           <div>
             <div className="mb-1 flex items-center justify-between text-xs">
               <span className="text-zinc-400">Background scale</span>
-              <code className="font-mono text-zinc-500">
-                {Math.round(backgroundScale * 100)}%
-              </code>
+              <code className="font-mono text-zinc-500">{Math.round(backgroundScale * 100)}%</code>
             </div>
             <input
               type="range"

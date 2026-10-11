@@ -9,10 +9,7 @@ interface Props {
 
 const TARGET_CELL = 40;
 
-function useAutoColumns(
-  ref: React.RefObject<HTMLDivElement | null>,
-  targetCell: number,
-): number {
+function useAutoColumns(ref: React.RefObject<HTMLDivElement | null>, targetCell: number): number {
   const [columns, setColumns] = useState(8);
   useEffect(() => {
     const el = ref.current;
