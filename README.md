@@ -42,6 +42,17 @@ pnpm build    # type-check and build the production bundle to ./dist
 pnpm check    # format, lint, type-check (vp check)
 ```
 
+## 🏷️ Release
+
+Bump the version and trigger a deployment with **bumpp** — it runs the checks, then
+commits, tags and pushes in one interactive step (choose patch/minor/major or a version):
+
+```sh
+pnpm release   # -> bumps version, runs checks, commits chore: release vX.Y.Z, tags vX.Y.Z, pushes
+```
+
+The push to `main` publishes the Docker image tagged with the new version (and `latest`).
+
 ## 🐳 Deployment
 
 The app is a static site. A `Dockerfile` builds it (with the official Vite+ toolchain image) and serves it with **Caddy** (with SPA fallback), and a GitHub Actions workflow pushes the image to **GHCR** tagged by the version in `package.json` on every push to `main`.

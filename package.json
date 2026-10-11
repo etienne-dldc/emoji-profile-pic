@@ -8,7 +8,9 @@
     "build": "tsc -b && vp build",
     "preview": "vp preview",
     "lint": "vp lint",
-    "check": "vp check"
+    "check": "vp check",
+    "release": "bumpp --execute \"vp run release:check\"",
+    "release:check": "vp check && vp test run && vp build"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
@@ -24,6 +26,7 @@
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.1.1",
+    "bumpp": "^12.3.0",
     "tailwindcss": "^4.3.3",
     "typescript": "~6.0.2",
     "vite": "catalog:",
